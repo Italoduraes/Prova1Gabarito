@@ -149,7 +149,7 @@ public class BDSimulado {
     	
     	
     	for (int i = 0; i < a1.size(); i++) {
-    		long d = Duration.between(a1.get(i).getDataEHoraDeInicio(), a1.get(i).getDataEHoraDeFim().getHour());
+    		long d = Duration.between(a1.get(i).getDataEHoraDeInicio(), a1.get(i).getDataEHoraDeFim()).toMinutes();
     		double valor;
     		
     		if(a1.get(i).getDataEHoraDeInicio().getHour() >= 20){
@@ -158,8 +158,10 @@ public class BDSimulado {
     			valor = d * 0.05;
     		}
     		
-    	    int idade= Period.between(c.getDataNascimento(), LocalDate.now().getYear());
-    		
+    	    int idade= Period.between(c.getDataNascimento(), LocalDate.now()).getYears();
+    		if (idade >= 65) {
+				valor = valor * 0.85;
+			}
     	
     		
 			resultado = resultado + "Ligação " + (i+1) + ": "+
